@@ -5,7 +5,7 @@ const Navbar = () => (
   <nav className="flex items-center justify-between px-8 py-3 border-b border-gray-400 h-16 w-full">
     {/* Logo spot on the left */}
     <div className="flex items-center">
-      <div className="text-blue-600 text-3xl font-bold mr-8">AIVA</div>
+      <div className="text-[rgb(82,151,218)] text-3xl font-bold mr-8">AIVA</div>
     </div>
 
     {/* Navigation links */}
@@ -14,28 +14,28 @@ const Navbar = () => (
 				<NavLink
 					to="/home"
 					className={({ isActive }) =>
-						isActive ? "text-blue-600 font-bold" : "text-gray-800"
+						isActive ? "text-[rgb(82,151,218)] font-bold" : "text-gray-800"
 					}>Home</NavLink>
       </li>
       <li>
 				<NavLink
 					to="/insights"
 					className={({ isActive }) =>
-						isActive ? "text-blue-600 font-bold" : "text-gray-800"
+						isActive ? "text-[rgb(82,151,218)] font-bold" : "text-gray-800"
 					}>Insights</NavLink>
       </li>
       <li>
 				<NavLink
 					to="/goals"
 					className={({ isActive }) =>
-						isActive ? "text-blue-600 font-bold" : "text-gray-800"
+						isActive ? "text-[rgb(82,151,218)] font-bold" : "text-gray-800"
 					}>Goals</NavLink>
       </li>
       <li>
 				<NavLink
 					to="/settings"
 					className={({ isActive }) =>
-						isActive ? "text-blue-600 font-bold" : "text-gray-800"
+						isActive ? "text-[rgb(82,151,218)] font-bold" : "text-gray-800"
 					}>Settings</NavLink>
       </li>
     </ul>
