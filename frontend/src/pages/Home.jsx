@@ -1,8 +1,12 @@
 import { useLocation } from "react-router-dom";
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
+import SpendingDoughnutChart from "../components/SpendingChart";
+import CashFlowChart from "../components/CashFlowChart";
+import AlertsAndNotifications from "../components/AlertsAndNotications";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRobot, faPaperPlane, faWandMagicSparkles, faLightbulb, faMoneyBillTrendUp, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+
 
 
 const Home = () => {
@@ -70,7 +74,7 @@ const Home = () => {
 							<h2 className="font-bold">Top Spending Category</h2>
 							<div className="ml-3 font-semibold text-[rgb(148,108,60)] border border-[rgb(252,239,152)] bg-[rgb(254,248,201)] rounded-full px-3">medium</div>
 						</div>
-						<p>You've spen $300 on Eating Out this month.</p>
+						<p>You've spent $300 on Eating Out this month.</p>
 					</div>
 				</div>
 				<div className="flex mr-4 mt-4 p-4 bg-[rgb(253,248,245)] rounded-lg">
@@ -83,10 +87,10 @@ const Home = () => {
 						<p>You have 7 unusually large transaction(s) recently.</p>
 					</div>
 				</div>
-				<div>
-
-				</div>
 			</div>
+			<SpendingDoughnutChart/>
+			<CashFlowChart/>
+			<AlertsAndNotifications/>
     </div>
   );
 };
