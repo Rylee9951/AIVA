@@ -1,42 +1,45 @@
 import React from "react";
 import { NavLink } from "react-router";
+import AIVALogo from "../assets/aiva-logo2.png";
+import { LayoutDashboard, TrendingUp, Target, Settings } from "lucide-react";
 
 const Navbar = () => (
   <nav className="flex items-center justify-between px-8 py-3 border-b border-gray-400 h-16 w-full">
     {/* Logo spot on the left */}
     <div className="flex items-center">
-      <div className="text-[rgb(82,151,218)] text-3xl font-bold mr-8">AIVA</div>
+      {/* <div className="text-[rgb(82,151,218)] text-3xl font-bold mr-8">AIVA</div> */}
+      <img src={AIVALogo} alt="AIVA Logo" className="h-20 w-auto mr-4" />
     </div>
 
     {/* Navigation links */}
     <ul className="flex flex-1 justify-around space-x-8 list-none m-0 p-0 ">
       <li>
 				<NavLink
-					to="/home"
+					to="/dashboard"
 					className={({ isActive }) =>
 						isActive ? "text-[rgb(82,151,218)] font-bold" : "text-gray-800"
-					}>Home</NavLink>
+					}><div className="flex items-center"><div className="mr-2"><LayoutDashboard size={18}/></div>Dashboard</div></NavLink>
       </li>
       <li>
 				<NavLink
 					to="/insights"
 					className={({ isActive }) =>
 						isActive ? "text-[rgb(82,151,218)] font-bold" : "text-gray-800"
-					}>Insights</NavLink>
+					}><div className="flex items-center"><div className="mr-2"><TrendingUp size={18}/></div>Insights</div></NavLink>
       </li>
       <li>
 				<NavLink
 					to="/goals"
 					className={({ isActive }) =>
 						isActive ? "text-[rgb(82,151,218)] font-bold" : "text-gray-800"
-					}>Goals</NavLink>
+					}><div className="flex items-center"><div className="mr-2"><Target size={18}/></div>Goals</div></NavLink>
       </li>
       <li>
 				<NavLink
 					to="/settings"
 					className={({ isActive }) =>
 						isActive ? "text-[rgb(82,151,218)] font-bold" : "text-gray-800"
-					}>Settings</NavLink>
+					}><div className="flex items-center"><div className="mr-2"><Settings size={18}/></div>Settings</div></NavLink>
       </li>
     </ul>
 

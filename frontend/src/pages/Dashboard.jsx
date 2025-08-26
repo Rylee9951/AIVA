@@ -1,11 +1,13 @@
 import { useLocation } from "react-router-dom";
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
+import AIAssistant from "../components/AIAssistant";
 import SpendingDoughnutChart from "../components/SpendingChart";
 import CashFlowChart from "../components/CashFlowChart";
 import AlertsAndNotifications from "../components/AlertsAndNotications";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRobot, faPaperPlane, faWandMagicSparkles, faLightbulb, faMoneyBillTrendUp, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+
 
 
 
@@ -21,47 +23,34 @@ const Home = () => {
   return (
     <div className="w-full min-h-screen">
 			<Navbar/>
-			{!user ? (<h1 className="text-3xl">Welcome back, {user?.name}!</h1>) : (
-				<h1 className="text-3xl">Welcome to AIVA</h1>
+			{/* <div className="w-full h-32 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 mb-6">
+				<div className="m-auto w-100 text-white text-center pt-4">
+					<h1 className="text-3xl">AIVA</h1>
+					<p>Your inteligent personal finance companion, powered by advanced AI insights</p>
+				</div>
+			</div> */}
+			{user ? (<h1 className="text-[rgb(82,151,218)] text-3xl mt-4">Welcome back, {user?.name}!</h1>) : (
+				<h1 className="text-[rgb(82,151,218)] text-3xl mt-4">Welcome to AIVA!</h1>
 			)}
 			<div className="flex justify-between items-center mt-4">
-				<div className="w-1/4 p-4 bg-[rgb(233,244,250)] rounded-lg shadow-md">
-					<h2>Current Balance:</h2>
-					<span>$XXX,XXX</span>
+				<div className="w-1/4 p-4 bg-[rgb(233,244,250)] rounded-lg shadow-md flex flex-col">
+					<p className="text-sm">Current Balance</p>
+					<span className="font-bold">$7,254.94</span>
+					<span className="text-[rgb(66,147,109)] text-xs mt-2 font-semibold">+2.5%</span>
 				</div>
-				<div className="w-1/4 p-4 bg-[rgb(248,235,241)] rounded-lg shadow-md">
-					<h2>Spent This Month:</h2>
-					<span>$X,XXX</span>
+				<div className="w-1/4 p-4 bg-[rgb(248,235,241)] rounded-lg shadow-md flex flex-col">
+					<p className="text-sm">Spent This Month</p>
+					<span className="font-bold">$3,567</span>
+					<span className="text-[rgb(66,147,109)] text-xs mt-2 font-semibold">-15.2%</span>
 				</div>
-				<div className="w-1/4 p-4 bg-[rgb(234,246,241)] rounded-lg shadow-md">
-					<h2>Goal:</h2>
-					<span>X%</span>
-				</div>
-			</div>
-			<div className="w-full p-4 bg-[rgb(251,252,253)] rounded-lg shadow-md mt-6">
-				<div className="flex items-center mb-4">
-					<FontAwesomeIcon icon={faRobot} />
-					<h1 className="text-left font-bold ml-2">AI Financial Assistant</h1>
-				</div>
-				<textarea
-					className="w-full p-2 rounded-lg mt-4 bg-[rgb(254,254,255)]"
-					id="my-textarea"
-					value={text}
-					onChange={handleChange}
-					placeholder="Ask me anything about your finances..."
-					rows="5" // Optional: specify the number of visible text lines
-					cols="50" // Optional: specify the visible width of the text area
-				/>
-				<button id="ask-ai-button" className="w-full mt-2 p-2 bg-blue-500 text-white rounded-lg mt-4 font-bold">
-					<FontAwesomeIcon icon={faPaperPlane} /> Ask AI
-				</button>
-				<div className="grid grid-flow-col grid-rows-2 gap-4 mt-4">
-					<button	className="mt-2 ml-2 p-2 border border-gray-200 text-gray-800 rounded-md text-left"><FontAwesomeIcon icon={faWandMagicSparkles} /> How can I reduce my spending this month?</button>
-					<button	className="mt-2 ml-2 p-2 border border-gray-200 text-gray-800 rounded-md text-left"><FontAwesomeIcon icon={faWandMagicSparkles} /> What's the best way to reach my savings goal?</button>
-					<button	className="mt-2 ml-2 p-2 border border-gray-200 text-gray-800 rounded-md text-left"><FontAwesomeIcon icon={faWandMagicSparkles} /> Should I be worried about my spending patterns?</button>
-					<button	className="mt-2 ml-2 p-2 border border-gray-200 text-gray-800 rounded-md text-left"><FontAwesomeIcon icon={faWandMagicSparkles} /> How much should I budget for emergencies?</button>
+				<div className="w-1/4 p-4 bg-[rgb(234,246,241)] rounded-lg shadow-md flex flex-col">
+					<p className="text-sm">Primary Goal</p>
+					<span className="font-bold">45% Complete</span>
+					<span className="text-[rgb(105,118,138)] text-xs mt-2 font-medium">$4,500.00 / $10,000.00</span>
 				</div>
 			</div>
+			<AIAssistant/>
+			{/* Insights Section */}
 			<div className="w-full p-4 bg-[rgb(251,252,253)] rounded-lg shadow-md mt-6">
 				<div className="flex items-center mb-4">
 					<FontAwesomeIcon icon={faLightbulb} />

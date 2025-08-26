@@ -16,7 +16,7 @@ function App() {
             const decoded = jwtDecode(credentialResponse.credential);
             console.log("Decoded user:", decoded);
             setUser(decoded);
-            navigate("/home", { state: { user: decoded } });
+            navigate("/dashboard", { state: { user: decoded } });
           }}
           onError={() => {
             console.log("Login Failed");
