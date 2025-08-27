@@ -2,12 +2,33 @@ import React, {useState} from "react";
 import { Bot, Send, Sparkles } from 'lucide-react';
 
 const AIAssistant = () => {
-	
-		const [text, setText] = useState('');
-	
-		const handleChange = (event) => {
-			setText(event.target.value);
-		};
+	const [prompt, setPrompt] = useState('');
+  // const [response, setResponse] = useState('');
+  // const [isLoading, setIsLoading] = useState(false);
+
+	// const handleSubmit = async () => {
+  //   if (!prompt.trim()) return;
+    
+  //   setIsLoading(true);
+    // try {
+    //   const contextPrompt = `
+    //     You are a professional personal finance advisor. The user has asked: "${prompt}"
+        
+    //     Here's their financial context:
+    //     - Recent transactions: ${JSON.stringify(transactions?.slice(0, 5) || [])}
+    //     - Financial goals: ${JSON.stringify(goals || [])}
+        
+    //     Provide helpful, actionable financial advice in a friendly but professional tone. Keep it concise and practical.
+    //   `;
+      
+    //   const result = await InvokeLLM({ prompt: contextPrompt });
+    //   setResponse(result);
+    // } catch (error) {
+    //   setResponse('I apologize, but I encountered an error. Please try again.');
+    // }
+    // setIsLoading(false);
+  // };
+
 
 	return (
 		<div className="w-full p-4 bg-[rgb(251,252,253)] rounded-lg shadow-md mt-6">
@@ -20,16 +41,17 @@ const AIAssistant = () => {
 			<textarea
 				className="w-full p-2 rounded-lg mt-4 bg-[rgb(254,254,255)]"
 				id="my-textarea"
-				value={text}
-				onChange={handleChange}
+				value={prompt}
+				onChange={(e) => setPrompt(e.target.value)}
 				placeholder="Ask me anything about your finances..."
-				rows="5" // Optional: specify the number of visible text lines
-				cols="50" // Optional: specify the visible width of the text area
+				rows="3"
+				cols="50"
 			/>
 			<button 
 				// onClick={handleSubmit}
-				// disabled={isLoading || !prompt.trim()}
-				className="w-full mt-2 p-2 rounded-lg mt-4 font-bold flex justify-center bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg">
+				disabled={!prompt.trim()}
+				className="w-full mt-2 p-2 rounded-lg mt-4 font-bold flex justify-center bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg"
+				>
 				<div className="flex items-center gap-2">
 					<Send className="w-4 h-4" />
 					Ask AI

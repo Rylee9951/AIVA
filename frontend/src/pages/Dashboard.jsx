@@ -1,12 +1,12 @@
 import { useLocation } from "react-router-dom";
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
 import AIAssistant from "../components/AIAssistant";
 import SpendingDoughnutChart from "../components/SpendingChart";
 import CashFlowChart from "../components/CashFlowChart";
 import AlertsAndNotifications from "../components/AlertsAndNotications";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRobot, faPaperPlane, faWandMagicSparkles, faLightbulb, faMoneyBillTrendUp, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faLightbulb, faMoneyBillTrendUp, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -14,11 +14,6 @@ import { faRobot, faPaperPlane, faWandMagicSparkles, faLightbulb, faMoneyBillTre
 const Home = () => {
   const location = useLocation();
   const user = location.state?.user;
-	const [text, setText] = useState('');
-
-	const handleChange = (event) => {
-		setText(event.target.value);
-	};
 
   return (
     <div className="w-full min-h-screen">
