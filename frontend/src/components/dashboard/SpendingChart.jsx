@@ -1,6 +1,4 @@
-import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChartPie } from '@fortawesome/free-solid-svg-icons'
+import { PieChartIcon } from 'lucide-react'
 import { Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -14,14 +12,14 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const SpendingDoughnutChart = () => {
 	const labelIcons = {
-    Other: "💡",
-    Shopping: "🛍️",
-    Entertainment: "🎬",
-    Healthcare: "💊",
-    Groceries: "🛒",
-    Utilities: "💡",
-    Transportation: "🚗",
-    Dining: "🍽️",
+    Groceries: '🛒',
+    Dining: '🍽️',
+    Transportation: '🚗',
+    Utilities: '⚡',
+    Entertainment: '🎬',
+    Shopping: '🛍️',
+    Healthcare: '🏥',
+    Other: '📦'
   };
   const data = {
     labels: [
@@ -80,7 +78,7 @@ const options = {
   return (
 		<div className="w-full p-4 bg-[rgb(251,252,253)] rounded-lg shadow-md mt-6">
 			<div className="flex items-center mb-4">
-				<FontAwesomeIcon icon={faChartPie} />
+				<PieChartIcon className="w-5 h-5 text-blue-600" />
 				<h2 className="text-left font-bold ml-2">Spending by Category</h2>
 			</div>
 			<div className="max-w-md mx-auto w-full">

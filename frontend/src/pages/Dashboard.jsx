@@ -1,5 +1,4 @@
 import { useLocation } from "react-router-dom";
-import React from "react";
 import Navbar from "../components/Navbar";
 import FinancialOverview from "../components/dashboard/FinancialOverview";
 import AIAssistant from "../components/dashboard/AIAssistant";
@@ -7,9 +6,6 @@ import SmartInsights from "../components/dashboard/SmartInsights";
 import SpendingDoughnutChart from "../components/dashboard/SpendingChart";
 import CashFlowChart from "../components/dashboard/CashFlowChart";
 import AlertsAndNotifications from "../components/dashboard/AlertsAndNotications";
-
-
-
 
 
 const Dashboard = () => {

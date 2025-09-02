@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink } from "react-router";
 import AIVALogo from "../assets/aiva-logo2.png";
 import { LayoutDashboard, TrendingUp, Target, Settings } from "lucide-react";

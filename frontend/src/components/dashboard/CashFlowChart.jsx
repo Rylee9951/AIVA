@@ -1,6 +1,5 @@
 import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMoneyBillTrendUp } from '@fortawesome/free-solid-svg-icons'
+import { TrendingUp } from 'lucide-react';
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -120,7 +119,7 @@ const CashFlowChart = () => {
   return (
 		<div className="w-full p-4 bg-[rgb(251,252,253)] rounded-lg shadow-md mt-6">
 			<div className="flex items-center mb-4">
-				<FontAwesomeIcon icon={faMoneyBillTrendUp} />
+				<TrendingUp className="w-5 h-5 text-emerald-600" />
 				<h2 className="text-left font-bold ml-2">Cash Flow (30 days)</h2>
 			</div>
 			<div className="mx-auto w-full">

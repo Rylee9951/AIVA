@@ -1,19 +1,18 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBell, faTriangleExclamation, faTrophy } from '@fortawesome/free-solid-svg-icons'
+import { Bell, AlertTriangle, CheckCircle, Info, Trophy, X } from 'lucide-react';
 
 const AlertsAndNotifications = () => {
   return (
 			<div className="w-full p-4 bg-[rgb(251,252,253)] rounded-lg shadow-md mt-6">
 				<div className="flex justify-between items-center mb-4">
 					<div className="flex items-center mb-4">
-						<FontAwesomeIcon icon={faBell} />
+						<Bell className="w-5 h-5 text-blue-600" />
 						<h1 className="text-left font-bold ml-2">Alerts & Notifications</h1>
 					</div>
 					<div className="ml-3 font-semibold text-[rgb(141,40,34)] border border-[rgb(246,204,203)] bg-[rgb(250,227,227)] rounded-full px-3">4 new</div>
 				</div>
 				<div id="alerts-list" className="max-h-100 overflow-y-scroll">
 					<div className="flex mr-4 mt-4 p-4 bg-[rgb(253,245,245)] border border-[rgb(225,230,239)] rounded-lg">
-						<div><FontAwesomeIcon icon={faTriangleExclamation} /></div>
+						<div><AlertTriangle className="w-5 h-5 text-red-600" /></div>
 						<div>
 							<div className="ml-2">
 								<div className="flex">
@@ -27,12 +26,12 @@ const AlertsAndNotifications = () => {
 					</div>
 
 					<div className="flex mr-4 mt-4 p-4 bg-[rgb(246,251,247)] border border-[rgb(225,230,239)] rounded-lg">
-						<div><FontAwesomeIcon icon={faTrophy} /></div>
+						<div><Trophy className="w-5 h-5 text-green-600" /></div>
 						<div>
 							<div className="ml-2">
 								<div className="flex">
 									<h2 className="font-bold">Goal Progress</h2>
-									<div className="ml-3 font-semibold text-[rgb(141,40,34)] border border-[rgb(246,204,203)] bg-[rgb(250,227,227)] rounded-full px-3 mb-2">high</div>
+									<div className="ml-3 font-semibold border bg-red-100 text-red-800 border-red-200 rounded-full px-3 mb-2">high</div>
 								</div>
 								<p>Great job! You're 45% towards your Emergency Fund goal. Keep up the momentum.</p>
 							</div>
@@ -41,12 +40,12 @@ const AlertsAndNotifications = () => {
 					</div>
 
 					<div className="flex mr-4 mt-4 p-4 bg-[rgb(245,248,254)] border border-[rgb(225,230,239)] rounded-lg">
-						<div><FontAwesomeIcon icon={faBell} /></div>
+						<div><Bell className="w-5 h-5 text-blue-600" /></div>
 						<div>
 							<div className="ml-2">
 								<div className="flex">
 									<h2 className="font-bold">Bill Reminder</h2>
-									<div className="ml-3 font-semibold text-[rgb(148,108,60)] border border-[rgb(252,239,152)] bg-[rgb(254,248,201)] rounded-full px-3 mb-2">medium</div>
+									<div className="ml-3 font-semibold border bg-yellow-100 text-yellow-800 border-yellow-200 rounded-full px-3 mb-2">medium</div>
 								</div>
 								<p>Your internet bill ($79.99) is due in 3 days.Would you like to set up autopay?</p>
 							</div>
@@ -55,12 +54,12 @@ const AlertsAndNotifications = () => {
 					</div>
 
 					<div className="flex mr-4 mt-4 p-4 bg-[rgb(251,248,244)] border border-[rgb(225,230,239)] rounded-lg">
-						<div><FontAwesomeIcon icon={faTriangleExclamation} /></div>
+						<div><AlertTriangle className="w-5 h-5 text-red-600" /></div>
 						<div>
 							<div className="ml-2">
 								<div className="flex">
 									<h2 className="font-bold">Unusual Transaction</h2>
-									<div className="ml-3 font-semibold text-[rgb(48,99,57)] border border-[rgb(213,248,222)] bg-[rgb(226,251,233)] rounded-full px-3 mb-2">low</div>
+									<div className="ml-3 font-semibold border bg-green-100 text-green-800 border-green-200 rounded-full px-3 mb-2">low</div>
 								</div>
 								<p>We noticed a large transaction at Target ($145.80). Was this expected?</p>
 							</div>
@@ -69,12 +68,12 @@ const AlertsAndNotifications = () => {
 					</div>
 
 					<div className="flex mr-4 mt-4 p-4 bg-[rgb(245,247,253)] border border-[rgb(225,230,239)] rounded-lg">
-						<div><FontAwesomeIcon icon={faBell} /></div>
+						<div><Bell className="w-5 h-5 text-blue-600" /></div>
 						<div>
 							<div className="ml-2">
 								<div className="flex">
 									<h2 className="font-bold">Investment Opportunity</h2>
-									<div className="ml-3 font-semibold text-[rgb(48,99,57)] border border-[rgb(213,248,222)] bg-[rgb(226,251,233)] rounded-full px-3 mb-2">low</div>
+									<div className="ml-3 font-semibold border bg-green-100 text-green-800 border-green-200 rounded-full px-3 mb-2">low</div>
 								</div>
 								<p>Based on your savings pattern, consider investing $200/month in a diversified index fund.</p>
 							</div>
