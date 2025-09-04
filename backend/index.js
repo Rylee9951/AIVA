@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const { Pool } = require('pg');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -28,6 +29,12 @@ const client = new PlaidApi(configuration);
 app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors({
+  origin: 'http://localhost:5173',   // React app origin
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  credentials: true,                  // If you use cookies or auth headers
+}));
+
 
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
@@ -71,6 +78,29 @@ async function getTransactions(accessToken) {
   return response.data.transactions;
 }
 
+// Get real-time balances for linked accounts
+async function getAccountBalances(accessToken) {
+  const response = await client.accountsBalanceGet({ access_token: accessToken });
+  return response.data.accounts; // returns array of accounts with balances fields
+}
+
+// Get all transactions in a date range (e.g., this month)
+async function getMonthlyTransactions(accessToken, startDate, endDate) {
+  const response = await client.transactionsGet({
+    access_token: accessToken,
+    start_date: startDate,
+    end_date: endDate,
+  });
+  return response.data.transactions; // array of transactions
+}
+
+// Calculate total amount spent this month from transaction list
+function calculateAmountSpent(transactions) {
+  return transactions
+    .filter(txn => txn.amount > 0 && txn.category_type === 'expense') // filter for expenses
+    .reduce((sum, txn) => sum + txn.amount, 0); // sum amounts
+}
+
 
 app.get('/', (req, res) => {
   res.json({ info: 'Node.js, Express, and Postgres API' });
@@ -104,6 +134,36 @@ app.post('/exchange_public_token', async (req, res) => {
 app.get('/transactions', async (req, res) => {
   const transactions = await getTransactions(req.query.accessToken);
   res.json(transactions);
+});
+
+// Route to get current balances
+app.get('/current_balances', async (req, res) => {
+  try {
+    const accessToken = req.query.accessToken;
+    const accounts = await getAccountBalances(accessToken);
+    res.json({ accounts });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Route to get amount spent this month
+app.get('/amount_spent_this_month', async (req, res) => {
+  try {
+    const accessToken = req.query.accessToken;
+
+    // Get start and end dates for this month
+    const now = new Date();
+    const startDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-01`;
+    const endDate = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
+    const transactions = await getMonthlyTransactions(accessToken, startDate, endDate);
+    const amountSpent = calculateAmountSpent(transactions);
+
+    res.json({ amountSpent, transactions });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 app.get('/test', async (req, res) => {
