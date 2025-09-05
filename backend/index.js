@@ -25,6 +25,8 @@ const configuration = new Configuration({
 });
 
 const client = new PlaidApi(configuration);
+let sandboxToken = null;
+let accessToken = null;
 
 app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
@@ -56,6 +58,23 @@ const pool = new Pool({
   password: PASSWORD,
   port: 5432,
 });
+
+async function initTokens() {
+  try {
+    // Create sandbox public token
+    sandboxToken = await createSandboxPublicToken();
+
+    // Exchange for access token
+    accessToken = await exchangePublicToken(sandboxToken);
+
+    console.log("Sandbox & Access tokens ready:", { sandboxToken, accessToken });
+  } catch (err) {
+    console.error("Error initializing tokens:", err);
+  }
+}
+
+// Initialize tokens on server start
+initTokens();
 
 async function createSandboxPublicToken() {
   const response = await client.sandboxPublicTokenCreate({
@@ -130,10 +149,21 @@ app.post('/exchange_public_token', async (req, res) => {
   res.json({ accessToken });
 });
 
+//get access token for testing purposes
+app.get("/access_token", (req, res) => {
+  res.json({ accessToken });
+});
+
 // Fetch transactions using access token
 app.get('/transactions', async (req, res) => {
-  const transactions = await getTransactions(req.query.accessToken);
-  res.json(transactions);
+  try {
+    const accessToken = req.query.accessToken;
+    const transactions = await getTransactions(accessToken);
+    res.json({transactions});
+  }
+  catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // Route to get current balances
