@@ -1,3 +1,5 @@
+import React, { useEffect } from "react";
+import { fetchAccessTokenTest, fetchTransactions } from "../../api/api";
 import { PieChartIcon } from 'lucide-react'
 import { Doughnut } from "react-chartjs-2";
 import {
@@ -7,10 +9,23 @@ import {
   Legend
 } from "chart.js";
 
+
 // Register required Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+
+
+
 const SpendingDoughnutChart = () => {
+  useEffect(() => {
+    const getTokenAndTransactions = async () => {
+    const token = await fetchAccessTokenTest();
+    const transactions = await fetchTransactions(token);
+    console.log("Transactions:", transactions);
+    }
+    getTokenAndTransactions();
+  }, []);
+
 	const labelIcons = {
     Groceries: '🛒',
     Dining: '🍽️',

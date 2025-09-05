@@ -8,6 +8,13 @@ export const fetchAccessToken = async () => {
 	return res2.data.accessToken;
 }
 
+export const fetchAccessTokenTest = async () => {
+	// For testing purposes, return a hardcoded access token
+	const res = await axios.get("http://localhost:3000/access_token");
+	return res.data.accessToken;
+};
+
+
 export const fetchBalance = async (accessToken) => {
   const res = await axios.get("http://localhost:3000/current_balances", {
     params: { accessToken }
@@ -28,3 +35,10 @@ export const fetchSpending = async (accessToken) => {
   });
   return res.data;
 };
+
+export const fetchTransactions = async (accessToken) => {
+	const res = await axios.get("http://localhost:3000/transactions", {
+		params: { accessToken }
+	});
+	return res.data.transactions;
+}
