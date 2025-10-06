@@ -91,8 +91,8 @@ async function exchangePublicToken(publicToken) {
 async function getTransactions(accessToken) {
   const response = await client.transactionsGet({
     access_token: accessToken,
-    start_date: '2023-01-01',
-    end_date: '2023-12-31',
+    start_date: '2024-01-01',
+    end_date: '2025-12-31',
   });
   return response.data.transactions;
 }
