@@ -36,9 +36,9 @@ export const fetchSpending = async (accessToken) => {
   return res.data;
 };
 
-export const fetchTransactions = async (accessToken) => {
+export const fetchTransactions = async (accessToken, dateStart,dateEnd) => {
 	const res = await axios.get("http://localhost:3000/transactions", {
-		params: { accessToken }
+		params: { accessToken, dateStart, dateEnd }
 	});
 	return res.data.transactions;
 }
