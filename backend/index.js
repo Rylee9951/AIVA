@@ -88,11 +88,11 @@ async function exchangePublicToken(publicToken) {
   const response = await client.itemPublicTokenExchange({ public_token: publicToken });
   return response.data.access_token;
 }
-async function getTransactions(accessToken) {
+async function getTransactions(accessToken, startDate, endDate) {
   const response = await client.transactionsGet({
     access_token: accessToken,
-    start_date: '2024-01-01',
-    end_date: '2025-12-31',
+    start_date: startDate,
+    end_date: endDate,
   });
   return response.data.transactions;
 }
@@ -158,7 +158,9 @@ app.get("/access_token", (req, res) => {
 app.get('/transactions', async (req, res) => {
   try {
     const accessToken = req.query.accessToken;
-    const transactions = await getTransactions(accessToken);
+    const startDate = req.query.dateStart || '2025-01-01';
+    const endDate = req.query.dateEnd || '2025-12-31';
+    const transactions = await getTransactions(accessToken, startDate, endDate);
     res.json({transactions});
   }
   catch (error) {
