@@ -1,8 +1,19 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { Bot, Send, Sparkles } from 'lucide-react';
+import { askAiva } from "../../api/api";
 
 const AIAssistant = () => {
 	const [prompt, setPrompt] = useState('');
+	useEffect(() => {
+		async function getAnswer() {
+			const answer = await askAiva("What are my top 3 spending categories?");
+			console.log("Answer",answer);
+			// now you can use answer to set state, render, etc.
+		}
+
+		getAnswer();
+	}, []);
+
   // const [response, setResponse] = useState('');
   // const [isLoading, setIsLoading] = useState(false);
 

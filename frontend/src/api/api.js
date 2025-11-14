@@ -42,3 +42,14 @@ export const fetchTransactions = async (accessToken, dateStart,dateEnd) => {
 	});
 	return res.data.transactions;
 }
+
+export async function askAiva(prompt) {
+  const res = await fetch("http://localhost:3000/ai/ask", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt })
+  });
+
+  const data = await res.json();
+  return data.response;
+}
