@@ -7,6 +7,20 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 const { Configuration, PlaidApi, PlaidEnvironments } = require('plaid');
+// Gemini AI
+let googleModel;
+(async () => {
+  const { GoogleGenerativeAI } = await import("@google/generative-ai");
+
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY, {
+    apiVersion: "v1"
+  });
+
+  googleModel = genAI.getGenerativeModel({
+    model: "gemini-2.5-flash"
+  });
+})();
+
 
 const app = express();
 app.use(bodyParser.json());
@@ -204,6 +218,28 @@ app.get('/test', async (req, res) => {
     res.json(result.rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+// AI Route
+app.post('/ai/ask', async (req, res) => {
+  try {
+    const { prompt } = req.body;
+
+    if (!prompt) {
+      return res.status(400).json({ error: "Prompt is required" });
+    }
+
+    // Call Gemini model
+    const result = await googleModel.generateContent(prompt);
+
+    res.json({
+      response: result.response.text()
+    });
+
+  } catch (error) {
+    console.error("Gemini Error:", error);
+    res.status(500).json({ error: "Failed to generate AI response" });
   }
 });
 
