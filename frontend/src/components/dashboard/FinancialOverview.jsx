@@ -11,8 +11,6 @@ const FinancialOverview = () => {
 			const token = await fetchAccessTokenTest();
 			const account = await fetchBalance(token);
 			const spending = await fetchSpending(token);
-			console.log("Account balance:", account.balances.current);
-			console.log("Spent this month:", spending.amountSpent);
 			setBalance(account.balances.current);
 			setSpentThisMonth(spending.amountSpent.toString());
 		};
