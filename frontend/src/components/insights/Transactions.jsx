@@ -29,8 +29,8 @@ const Transactions = () => {
     setLoading(true);
     try {
       const token = await fetchAccessTokenTest();
-      const transactions = await fetchTransactions(token, String(dateStart), String(dateEnd),);
-      setTransactions(transactions);
+      const data = await fetchTransactions(token, String(dateStart), String(dateEnd));
+      setTransactions(data);
     } catch (err) {
       console.error("Error fetching transactions:", err);
     } finally {
@@ -45,7 +45,7 @@ const Transactions = () => {
 
   // Local category + sort filters
   const filtered = transactions
-    .filter((t) => (category ? t.personal_finance_category.primary === category : true))
+    .filter((t) => (category ? t.personal_finance_category?.primary === category : true))
     .sort((a, b) => {
       if (sortOrder === "high") return b.amount - a.amount;
       if (sortOrder === "low") return a.amount - b.amount;
@@ -118,9 +118,9 @@ const Transactions = () => {
       {loading && <p className="text-gray-500 text-sm">Loading transactions...</p>}
 
       {/* Transactions */}
-      {!loading && filtered.map((txn, index) => (
+      {!loading && filtered.map((txn) => (
         <div
-          key={index}
+          key={txn.transaction_id || `txn-${txn.date}-${txn.name}-${txn.amount}`}
           className="flex justify-between items-start mt-4 p-4 overflow-hidden rounded-xl bg-white/80 backdrop-blur-sm border border-slate-100 hover:shadow-md transition-all duration-200"
         >
           <div className="text-left">
@@ -131,7 +131,7 @@ const Transactions = () => {
                 {new Date(txn.date).toLocaleDateString()}
               </div>
               <div className="ml-3 text-xs font-semibold text-black border border-gray-200 rounded-full py-1 px-3 lowercase">
-                {txn.personal_finance_category.primary.replace(/_/g, " ")}
+                {txn.personal_finance_category?.primary?.replace(/_/g, " ") ?? "—"}
               </div>
             </div>
           </div>

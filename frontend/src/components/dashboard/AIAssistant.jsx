@@ -7,7 +7,7 @@ const AIAssistant = () => {
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-	const [isHidden, setIsHidden] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
 
   // useEffect(() => {
   //   async function getAnswer() {
@@ -17,15 +17,16 @@ const AIAssistant = () => {
   //   getAnswer();
   // }, []);
 
-  const handleSubmit = async () => {
-    if (!prompt.trim()) return;
+  const handleSubmit = async (overridePrompt) => {
+    const textToSend = overridePrompt !== undefined ? overridePrompt : prompt;
+    if (!String(textToSend || "").trim()) return;
 
     try {
       setIsLoading(true);
       setResponse("");
-			setIsHidden(false);
+      setIsHidden(false);
 
-      const answer = await askAiva(prompt);
+      const answer = await askAiva(textToSend);
       setResponse(answer);
     } catch (error) {
       console.error("AI Error:", error);
@@ -35,9 +36,9 @@ const AIAssistant = () => {
     }
   };
 
-  const handleQuickPrompt = async (text) => {
+  const handleQuickPrompt = (text) => {
     setPrompt(text);
-    setTimeout(() => handleSubmit(), 50); // fire after state update
+    handleSubmit(text);
   };
 
   return (
@@ -90,35 +91,34 @@ const AIAssistant = () => {
           onClick={handleQuickPrompt}
         />
       </div>
-			{/* TOGGLE BUTTON */}
-			{response && (
-				<button
-					onClick={() => setIsHidden(!isHidden)}
-					className="w-full p-2 mt-4 rounded-lg font-bold flex justify-center"
-				>
-					{isHidden ? "View Response" : "Hide Response"}
-				</button>
-			)}
+      {/* TOGGLE BUTTON */}
+      {response && (
+        <button
+          onClick={() => setIsHidden(!isHidden)}
+          className="w-full p-2 mt-4 rounded-lg font-bold flex justify-center"
+        >
+          {isHidden ? "View Response" : "Hide Response"}
+        </button>
+      )}
 
       {/* RESPONSE BOX */}
-			{response && !isHidden && (
-				<div className="relative mt-4 p-4 bg-white border rounded-lg shadow-sm">
+      {response && !isHidden && (
+        <div className="relative mt-4 p-4 bg-white border rounded-lg shadow-sm">
+          {/* Display the question asked */}
+          {prompt && (
+            <div className="mb-2">
+              <h2 className="font-bold text-sm text-gray-700">You asked:</h2>
+              <p className="text-gray-900">{prompt}</p>
+            </div>
+          )}
 
-					{/* Display the question asked */}
-					{prompt && (
-						<div className="mb-2">
-							<h2 className="font-bold text-sm text-gray-700">You asked:</h2>
-							<p className="text-gray-900">{prompt}</p>
-						</div>
-					)}
-
-					{/* AI Response */}
-					<h2 className="font-bold mb-1 text-purple-700">AIVA says:</h2>
-					<div className="prose">
-						<ReactMarkdown>{response}</ReactMarkdown>
-					</div>
-				</div>
-			)}
+          {/* AI Response */}
+          <h2 className="font-bold mb-1 text-purple-700">AIVA says:</h2>
+          <div className="prose">
+            <ReactMarkdown>{response}</ReactMarkdown>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
